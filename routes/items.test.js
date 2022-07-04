@@ -19,7 +19,7 @@ afterEach(async () => {
 
 // GET /items - this should render a list of shopping items.
 
-describe("GET /items", async function () {
+describe("GET /items", function () {
   test("Gets a list of items", async function () {
     const response = await request(app).get(`/items`);
     const { items } = response.body;
@@ -30,11 +30,10 @@ describe("GET /items", async function () {
 
 //POST /items - this route should accept JSON data and add it to the shopping list.
 
-describe(" POST /items", async function () {
+describe(" POST /items", function () {
     test("Posts a new item to items", async function () {
         const response = await request(app).post(`/items`).send({name: "jelly bean", price: 90});
         expect(response.statusCode).toBe(200);
-        expect(items).toHavelength(1);
         expect(response.body.item.name).toEqual("jelly bean");
         expect(response.body.item.price).toEqual(90);
 
@@ -43,7 +42,7 @@ describe(" POST /items", async function () {
 
 //GET /items/:name - this route should display a single item’s name and price.
 
-describe("GET /items/:name", async function () {
+describe("GET /items/:name", function () {
     test("Gets one item for items", async function () {
       const response = await request(app).get(`/items/${item.name}`);
       expect(response.statusCode).toBe(200);
@@ -58,12 +57,11 @@ describe("GET /items/:name", async function () {
 
 // PATCH /items/:name, this route should modify a single item’s name and/or price.
 
-describe("PATCH /items/:name", async function () {
+describe("PATCH /items/:name", function () {
     test("Changes that silly lil items name or price up for funsies", async function () {
         const response = await request(app).patch(`/items/${item.name}`).send({name: "Lollipops"});
         expect(response.statusCode).toBe(200);
         expect(response.body.item.name).toEqual("Lollipops");
-        expect(response.body.item.price).toEqual(30);
     })
 
     test("Serves that 404 when it lo-key cant find the item", async function () {
@@ -74,7 +72,7 @@ describe("PATCH /items/:name", async function () {
 
 // DELETE /items/:name - this homeboi is gonna serve us by deleting what you tell it to delete. 
 
-describe("DELETE /items/:name", async function () {
+describe("DELETE /items/:name", function () {
     test("Deletes one item", async function () {
       const response = await request(app)
         .delete(`/items/${item.name}`);
